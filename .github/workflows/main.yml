@@ -30,20 +30,25 @@ jobs:
         uses: actions/setup-node@v2.1.3
         with:
           node-version: ${{ matrix.node-version }}
+          
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
       - run: npm install
+        
       - run: npm run cy:run
+        
         continue-on-error: true
+        
       - run: npm run report:merge
+        
       - run: npm run report:mocha
         
-      -name: Deploy to GithubPages
-       uses: JamesIves/github-pages-deploy-action@3.7.1
-       with:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         BRANCH: gh-pages
-         FOLDER: mochawesome-report
+      - name: Deploy to GithubPages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: mochawesome-report
 
    
