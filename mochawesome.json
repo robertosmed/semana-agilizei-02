@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 1,
+    "passes": 0,
     "pending": 0,
-    "failures": 0,
-    "start": "2020-12-11T12:51:14.519Z",
-    "end": "2020-12-11T12:51:34.105Z",
-    "duration": 19586,
+    "failures": 1,
+    "start": "2021-03-19T12:48:22.994Z",
+    "end": "2021-03-19T12:48:38.156Z",
+    "duration": 15162,
     "testsRegistered": 1,
-    "passPercent": 100,
+    "passPercent": 0,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "1415d9c7-7ab9-427c-aca7-fd9637badf8f",
+      "uuid": "ec1930f1-f4e2-447a-aa13-d81ccfdeb530",
       "title": "",
       "fullFile": "cypress/integration/compra.spac.js",
       "file": "cypress/integration/compra.spac.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "63a3527c-8b67-423c-9302-ea409874a4a4",
+          "uuid": "a39e19d6-9373-444d-87fa-438597152c61",
           "title": "Compra",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,33 @@
               "title": "Efetuar uma compra de produto",
               "fullTitle": "Compra Efetuar uma compra de produto",
               "timedOut": null,
-              "duration": 19509,
-              "state": "passed",
-              "speed": "slow",
-              "pass": true,
-              "fail": false,
+              "duration": 15096,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
               "pending": false,
               "context": null,
               "code": "cy.backgroundLogin(); // http://automationpractice.com/index.php \ncy.visit('/');\nvar nomeProduto = 'Faded Short Sleeve T-shirts';\ncy.contains(nomeProduto).trigger('mouseover');\ncy.contains(nomeProduto).parent() //h5\n.siblings('div.button-container').children('a').first() // add to cart\n.click(); // Validando se o produto foi adicionado ao carrinho com sucesso\ncy.get('.icon-ok').parent() //h2\n.should('contain.text', 'Product successfully added to your shopping cart');\ncy.get('span#layer_cart_product_title').should('contain.text', nomeProduto);\ncy.get(\".button-container a[href$='controller=order']\").click();\ncy.get(\".cart_navigation a[href$='order&step=1']\").click(); //cy.get('#email').type('treinamento-agilizei2@mail.com')\n//cy.get('#passwd').type('12345')\n//cy.get('button#SubmitLogin').click()\n//Validando se o endereço de entrega é igual ao de cobrança\n//[type=checkbox]#addressesAreEquals\n// asserção | atributo | valor\ncy.get('[type=checkbox]#addressesAreEquals').should('have.attr', 'checked', 'checked');\ncy.get('[type=checkbox]#addressesAreEquals').should('have.attr', 'name', 'same');\ncy.get('button[name=processAddress]').click();\ncy.get('[type=checkbox]#cgv').check();\ncy.get('button[name=processCarrier]').click();\ncy.get('.bankwire').click();\ncy.get('.cart_navigation button[type=submit]').find('span').contains('I confirm my order').click();\ncy.get('.cheque-indent strong').should('contain.text', 'Your order on My Store is complete.');\ncy.get('div.box').invoke('text').then(function (text) {\n  console.log(text);\n  console.log(text.match(/[A-Z][A-Z]+/g)[1]); // 0 => RTP\n  //1 => ID do produto\n  // Escrita de um arquivo json com o conteudo do pedido\n  // caminho do arquivo (sempre a partir do root) | conteudo do arquivo\n  cy.writeFile('cypress/fixtures/pedido.json', {\n    id: \"\".concat(text.match(/[A-Z][A-Z]+/g)[1])\n  });\n});\ncy.get(\".cart_navigation a[href$='history']\").click(); //leitura do arquivo\ncy.readFile('cypress/fixtures/pedido.json').then(function (pedido) {\n  cy.get('tr.first_item .history_link a').should('contain.text', pedido.id);\n}); //para html (.) = class\n//json - json path\n//para json (.) = nível dentro do caminho do json",
-              "err": {},
-              "uuid": "72752d3f-c7e5-4559-bf3b-f20c2d830b05",
-              "parentUUID": "63a3527c-8b67-423c-9302-ea409874a4a4",
+              "err": {
+                "message": "AssertionError: Timed out retrying: Expected to find element: `[type=checkbox]#addressesAreEquals`, but never found it.",
+                "estack": "AssertionError: Timed out retrying: Expected to find element: `[type=checkbox]#addressesAreEquals`, but never found it.\n    at Context.eval (http://automationpractice.com/__cypress/tests?p=cypress/integration/compra.spac.js:122:50)",
+                "diff": null
+              },
+              "uuid": "617d0c28-fae6-41af-bbf6-a1b3d9526aaa",
+              "parentUUID": "a39e19d6-9373-444d-87fa-438597152c61",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [
-            "72752d3f-c7e5-4559-bf3b-f20c2d830b05"
+          "passes": [],
+          "failures": [
+            "617d0c28-fae6-41af-bbf6-a1b3d9526aaa"
           ],
-          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 19509,
+          "duration": 15096,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
